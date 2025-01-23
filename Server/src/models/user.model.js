@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     },
     profilePic: {
         type: String,
-        default: 'https://www.gravatar.com/avatar?d=identicon&s=200'
+        default: 'https://i.pinimg.com/736x/15/0f/a8/150fa8800b0a0d5633abc1d1c4db3d87.jpg'
     },
     number:{
         type: Number,
