@@ -8,6 +8,7 @@ import SettingsPage from './pages/SettingsPage'
 import Navbar from './components/Navbar'
 import { useAuthStore } from './store/useAuthStore'
 import { useEffect } from 'react'
+import { Toaster } from 'react-hot-toast';
 const App = () => {
 
 const { authUser,checkAuth,isCheckingAuth} = useAuthStore()
@@ -16,7 +17,7 @@ useEffect(() => {
 }, [checkAuth])
 console.log({authUser})
 if (isCheckingAuth && !authUser) return (
-  <span className="loading loading-spinner loading-md flex items-center justify-center h-screen"></span>
+  <span className="loading loading-spinner loading-md flex items-center justify-center"></span>
 )
 
   return (
@@ -33,6 +34,7 @@ if (isCheckingAuth && !authUser) return (
 
 
 </Routes>
+<Toaster/>
     </div>
   )
 }
