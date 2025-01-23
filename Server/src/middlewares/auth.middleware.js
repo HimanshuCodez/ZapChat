@@ -4,7 +4,7 @@ import User from '../models/user.model.js'
 // Middleware to authenticate JWT
 export const protectRoute = async (req, res, next) => {
 try {
-    const token = req.cookies.jwttoken
+    const token = req.cookies.jwtToken
 if(!token ){
     return res.status(401).json({ message: 'Not authorized, token is required' })
 }
