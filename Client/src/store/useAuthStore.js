@@ -42,4 +42,43 @@ export const useAuthStore = create((set) => ({
         set({ isSigningUp: false });
     }
 },
+login :async (data)=>{
+   set({ isLoggingIn: true });
+    try {
+        const res = await axioss.post("/auth/login", data);
+        set({ authUser: res.data });
+        toast.success("Logged In Successfully");
+    } catch (error) {
+        toast.error("Invalid Credentials");
+        console.log("Error in login:", error);
+    } finally {
+        set({ isLoggingIn: false });
+    }
+},
+logout :async ()=>{
+    try {
+        await axioss.post("/auth/logout");
+        set({ authUser: null });
+        toast.success("Logged Out Successfully");
+    } catch (error) {
+        console.log("Error in logout:", error);
+        toast.error("An error occurred while logging out");
+    }
+},
+
+// Update user profile
+
+updateProfile: async (data) => {
+    set({ isUpdatingProfile: true });
+    try {
+        const res = await axioss.patch("/auth/update-profile", data);
+        set({ authUser: res.data });
+        toast.success("Profile Updated Successfully");
+    } catch (error) {
+        toast.error("An error occurred while updating profile");
+        console.log("Error in updateProfile:", error);
+    } finally {
+        set({ isUpdatingProfile: false });
+    }
+}
 }));
