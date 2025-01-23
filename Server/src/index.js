@@ -2,7 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import authRoutes from './routes/auth.routes.js'
 import messageRoutes from './routes/message.routes.js'
-
+import cors from 'cors'
 import mongoose from 'mongoose'
 import  cookieParser from 'cookie-parser'
 const app = express()
@@ -12,7 +12,12 @@ const URI = process.env.URI
 
 app.use(express.json())
 app.use(cookieParser())
-
+app.use(cors(
+    {
+        origin: 'http://localhost:5173',
+        credentials: true,
+    }
+))
 
 
 

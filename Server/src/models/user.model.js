@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'https://www.gravatar.com/avatar?d=identicon&s=200'
     },
+    number:{
+        type: Number,
+        required: true,
+        unique: true
+    }
    
 },
 {timestamps:true})
