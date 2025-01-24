@@ -1,7 +1,5 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
-
-import { generateToken } from "../utils/utils.js";
 import cloudinary from "../utils/cloudinary.js";
 
 export const getUsersForSidebar = async(req,res)=>{
