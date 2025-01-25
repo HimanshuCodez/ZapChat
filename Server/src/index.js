@@ -5,7 +5,8 @@ import messageRoutes from './routes/message.routes.js'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import  cookieParser from 'cookie-parser'
-const app = express()
+import { app,server } from './utils/socket.js'
+
 dotenv.config()
 const PORT = process.env.PORT
 const URI = process.env.URI
@@ -35,7 +36,7 @@ mongoose.connect(URI).then(() => console.log('connected to mongodb')).catch((err
 
 
 
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
     console.log('Server is running on port ')
 
 })
