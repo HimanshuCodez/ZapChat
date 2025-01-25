@@ -11,7 +11,7 @@ const seedUsers = [
     fullname: "lisa Manobal",
     password: "123456",
     profilePic: "https://i.pinimg.com/236x/7c/4c/cf/7c4ccf6f8666cc201890e690a6d6932a.jpg",
-    number : 8932893829,
+    number : 8932893444,
   },
   {
     email: "Roseanne.Park@gmail.com",

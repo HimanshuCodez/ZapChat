@@ -1,6 +1,6 @@
 import { generateToken } from "../utils/utils.js"
 import User from "../models/user.model.js";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 import cloudinary from "../utils/cloudinary.js";
 
 export const signup = async (req, res) => {
@@ -21,13 +21,13 @@ export const signup = async (req, res) => {
 
     if (user) return res.status(400).json({ message: "Email already exists" });
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new User({
       fullname,
       email,
-      password: hashedPassword,
+      password,
       number,
     });
 
