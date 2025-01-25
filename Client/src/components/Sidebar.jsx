@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { useAuthStore } from "../store/useAuthStore";
 import SidebarSkeleton from "./skeletons/SidebarSkeleton";
-import { Users } from "lucide-react";
+import { Users, X } from "lucide-react";
 
 const Sidebar = () => {
   const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } = useChatStore();
-
   const { onlineUsers } = useAuthStore();
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProfilePic, setSelectedProfilePic] = useState(null);
 
   useEffect(() => {
     getUsers();
@@ -20,6 +21,11 @@ const Sidebar = () => {
 
   if (isUsersLoading) return <SidebarSkeleton />;
 
+  const handleProfilePicClick = (profilePic) => {
+    setSelectedProfilePic(profilePic);
+    setShowModal(true);
+  };
+
   return (
     <aside className="h-full w-20 lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200">
       <div className="border-b border-base-300 w-full p-5">
@@ -27,7 +33,6 @@ const Sidebar = () => {
           <Users className="size-6" />
           <span className="font-medium hidden lg:block">Contacts</span>
         </div>
-        {/* TODO: Online filter toggle */}
         <div className="mt-3 hidden lg:flex items-center gap-2">
           <label className="cursor-pointer flex items-center gap-2">
             <input
@@ -53,7 +58,13 @@ const Sidebar = () => {
               ${selectedUser?._id === user._id ? "bg-base-300 ring-1 ring-base-300" : ""}
             `}
           >
-            <div className="relative mx-auto lg:mx-0">
+            <div
+              className="relative mx-auto lg:mx-0 cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent selecting the user when clicking on the profile pic
+                handleProfilePicClick(user.profilePic || "/avatar.png");
+              }}
+            >
               <img
                 src={user.profilePic || "/avatar.png"}
                 alt={user.name}
@@ -81,7 +92,32 @@ const Sidebar = () => {
           <div className="text-center text-zinc-500 py-4">No online users</div>
         )}
       </div>
+
+      {/* Modal for profile picture */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="relative bg-white rounded-lg p-4">
+            {/* Close Button */}
+            <button
+              className="absolute top-2 right-2 text-zinc-600 hover:text-zinc-800"
+              onClick={() => setShowModal(false)}
+            >
+              <X size={24} />
+            </button>
+
+            {/* Profile Picture */}
+            <div className="flex items-center justify-center">
+              <img
+                src={selectedProfilePic}
+                alt="Profile"
+                className="max-w-full max-h-[90vh] rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </aside>
   );
 };
+
 export default Sidebar;
