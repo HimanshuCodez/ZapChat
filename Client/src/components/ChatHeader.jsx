@@ -90,7 +90,7 @@ const ChatHeader = () => {
                 <p className="px-4 py-2.5 bg-base-200 rounded-lg border">
                   {selectedUser.email || "Not available"}
                 </p>
-              </div>
+              
              
               </div>
             </div>
