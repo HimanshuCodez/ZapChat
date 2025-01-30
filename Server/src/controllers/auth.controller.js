@@ -55,19 +55,15 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password, number } = req.body;
   try {
-    // Find user by email and number
     const user = await User.findOne({ email, number });
 
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Directly compare the plain password
     if (password !== user.password) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-
-    // Generate token for authenticated user
     generateToken(user._id, res);
 
     res.status(200).json({
@@ -79,7 +75,7 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.log("Error in login controller", error.message);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Cant Login Now" });
   }
 };
 
